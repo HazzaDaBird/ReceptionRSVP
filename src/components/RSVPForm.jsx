@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { submitToGoogleForm } from '../utils/googleForm';
+import chapelBackground from '../assets/chapel-in-sunshine-trees.webp';
 
 const RSVPForm = () => {
   const [formData, setFormData] = useState({
@@ -57,7 +58,10 @@ const RSVPForm = () => {
   };
 
   return (
-    <div className="min-h-screen bg-wedding-sand py-12 px-4 sm:px-6 lg:px-8 font-serif flex items-center justify-center">
+    <div
+      className="min-h-screen bg-wedding-sand bg-cover bg-center bg-no-repeat py-12 px-4 sm:px-6 lg:px-8 font-serif flex items-center justify-center"
+      style={{ backgroundImage: `url(${chapelBackground})` }}
+    >
       <div className="max-w-lg w-full bg-white p-8 md:p-12 rounded-xl shadow-2xl border border-stone-100 relative">
         {/* Decorative top border */}
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-wedding-gold to-transparent opacity-70"></div>
