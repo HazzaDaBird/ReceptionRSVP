@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { submitToGoogleForm } from '../utils/googleForm';
-import chapelBackground from '../assets/chapel-in-sunshine-trees.webp';
+import chapelBackground from '../assets/chapel.png';
 
 const RSVPForm = () => {
   const [formData, setFormData] = useState({
