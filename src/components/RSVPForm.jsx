@@ -56,26 +56,6 @@ const RSVPForm = () => {
     }
   };
 
-  if (isSubmitted) {
-    return (
-      <div className="min-h-screen bg-wedding-sand py-12 px-4 sm:px-6 lg:px-8 font-serif flex items-center justify-center">
-        <div className="max-w-md w-full bg-white p-10 rounded-xl shadow-2xl border border-wedding-gold/20 text-center relative overflow-hidden">
-          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-wedding-gold to-transparent"></div>
-          <h2 className="text-4xl font-bold text-stone-800 mb-6 font-serif">Thank You!</h2>
-          <p className="text-stone-600 mb-8 text-lg font-sans">
-            Your RSVP has been received. We can't wait to celebrate with you!
-          </p>
-          <button 
-            onClick={() => setIsSubmitted(false)}
-            className="text-wedding-green hover:text-stone-800 font-medium transition-colors duration-300 underline underline-offset-4"
-          >
-            Submit another response
-          </button>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="min-h-screen bg-wedding-sand py-12 px-4 sm:px-6 lg:px-8 font-serif flex items-center justify-center">
       <div className="max-w-lg w-full bg-white p-8 md:p-12 rounded-xl shadow-2xl border border-stone-100 relative">
@@ -89,15 +69,41 @@ const RSVPForm = () => {
           </div>
           <div className="mt-6 space-y-2">
             <p className="text-xl font-semibold text-stone-800">July 11th, 2026</p>
-            <p className="text-stone-500 font-sans">From 5:00 PM (until around 2:00 AM)</p>
+            <p className="text-stone-500 font-sans">From 5:00 PM until 2:00 AM</p>
             <p className="text-lg font-medium text-stone-700 mt-2">The Chapel Bar</p>
-            <p className="text-stone-500 text-sm">29 Penton St, London N1 9PX</p>
+            <p className="text-stone-500 text-sm">
+              <a
+                href="https://www.google.com/maps/search/?api=1&query=29%20Penton%20St%2C%20London%20N1%209PX"
+                target="_blank"
+                rel="noreferrer"
+                className="underline underline-offset-4 hover:text-stone-700 transition-colors"
+              >
+                29 Penton St, London N1 9PX
+              </a>
+            </p>
             <div className="pt-2 text-stone-600 text-sm font-sans space-y-1">
               <p>Buffet dinner will be served at 5:30 PM, with more food later in the evening.</p>
-              <p>Very close to Angel Station and King’s Cross / St Pancras, with plenty of hotels nearby if needed.</p>
+              <p>Very close to Angel Station and King’s Cross / St Pancras</p>
             </div>
           </div>
         </div>
+
+        {isSubmitted && (
+          <div className="mb-6 rounded-lg border border-wedding-gold/20 bg-wedding-sand px-4 py-3 font-sans text-stone-700">
+            <div className="flex items-start justify-between gap-4">
+              <p className="text-sm">
+                <span className="font-semibold">Submitted successfully.</span> We’ve received your RSVP.
+              </p>
+              <button
+                type="button"
+                onClick={() => setIsSubmitted(false)}
+                className="text-xs uppercase tracking-wider text-stone-600 hover:text-stone-900 transition-colors"
+              >
+                Dismiss
+              </button>
+            </div>
+          </div>
+        )}
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-5">
@@ -165,14 +171,14 @@ const RSVPForm = () => {
           <div className="pt-4">
             <button
               type="submit"
-              disabled={isSubmitting}
+              disabled={isSubmitting || isSubmitted}
               className={`w-full flex justify-center py-3.5 px-4 border border-transparent rounded-lg shadow-sm text-sm font-bold uppercase tracking-widest text-white transition-all duration-200 ${
-                isSubmitting 
+                (isSubmitting || isSubmitted)
                   ? 'bg-stone-400 cursor-not-allowed' 
                   : 'bg-stone-800 hover:bg-stone-700 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-stone-500 transform hover:-translate-y-0.5'
               }`}
             >
-              {isSubmitting ? 'Sending RSVP...' : 'Submit RSVP'}
+              {isSubmitting ? 'Sending RSVP...' : (isSubmitted ? 'Submitted' : 'Submit RSVP')}
             </button>
           </div>
         </form>
