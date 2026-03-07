@@ -1,0 +1,58 @@
+/* 
+  Function to submit custom data to a Google Form.
+  
+  HOW TO SET UP:
+  1. Create a Google Form with questions matching your fields:
+     - Name (Short answer)
+     - Dietary Requirements (Paragraph)
+  2. Get the "pre-filled link":
+     - Click the 3 dots menu -> "Get pre-filled link"
+     - Fill in dummy data (e.g. name="NAME", dietary="DIET")
+     - Click "Get Link" and copy it.
+  4. Inspect the link to find the Entry IDs (e.g., &entry.123456=NAME)
+  5. Paste the FORM_URL (the part before /viewform) and map the entry IDs below.
+*/
+
+export const submitToGoogleForm = async (formData) => {
+  // TODO: PASTE YOUR NEW RECEPTION GOOGLE FORM ACTION URL HERE
+  // It usually looks like: https://docs.google.com/forms/u/0/d/e/LONG_ID_HERE/formResponse
+  const FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSf7nq7e_hPvf_9vsFoZuRQQF7-tqVakxi1F5Kt8S6F1hefTeg/formResponse'; 
+  
+  // TODO: MAP YOUR NEW RECEPTION FORM ENTRY IDs HERE
+  // Replace 'entry.xxxxxx' with the actual IDs from your pre-filled link
+  // You can find these by getting a "pre-filled link" from your new Google Form
+  const formEntries = {
+    'entry.1766180846': formData.name,       // Name field ID
+    'entry.300249699': formData.dietary     // Dietary requirements ID
+  };
+  
+  // Convert to URLSearchParams for submission
+  const formBody = new URLSearchParams();
+  for (const [key, value] of Object.entries(formEntries)) {
+    formBody.append(key, value);
+  }
+
+  try {
+    if (FORM_URL === 'YOUR_GOOGLE_FORM_URL_HERE') {
+      console.warn("Please configure your Google Form URL in src/utils/googleForm.js");
+      // Simulate success for demo purposes if not configured
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      return true;
+    }
+
+    await fetch(FORM_URL, {
+      method: 'POST',
+      mode: 'no-cors', // Essential for Google Forms to allow the request
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: formBody.toString(),
+    });
+    
+    // With 'no-cors', we can't see the response status, so we assume success if no error was thrown.
+    return true;
+  } catch (error) {
+    console.error("Error submitting to Google Form:", error);
+    return false;
+  }
+};
