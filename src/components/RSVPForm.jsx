@@ -73,7 +73,7 @@ const RSVPForm = () => {
             <p className="text-lg font-medium text-stone-700 mt-2">The Chapel Bar</p>
             <p className="text-stone-500 text-sm">
               <a
-                href="https://www.google.com/maps/search/?api=1&query=29%20Penton%20St%2C%20London%20N1%209PX"
+                href="https://www.google.com/maps/place/The+Chapel+Bar/@51.5337786,-0.1126765,29z/data=!4m15!1m8!3m7!1s0x48761b417c330733:0x52cefeeab82e4967!2s29+Penton+St,+London+N1+9PX!3b1!8m2!3d51.5326981!4d-0.1116928!16s%2Fg%2F11b8v4r2kp!3m5!1s0x48761b417d5790bb:0x6d9ff6ff2b53fbd5!8m2!3d51.532721!4d-0.111644!16s%2Fg%2F1tqf_tq6?entry=ttu&g_ep=EgoyMDI2MDMwNC4xIKXMDSoASAFQAw%3D%3D"
                 target="_blank"
                 rel="noreferrer"
                 className="underline underline-offset-4 hover:text-stone-700 transition-colors"
