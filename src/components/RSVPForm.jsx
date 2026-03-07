@@ -89,9 +89,13 @@ const RSVPForm = () => {
           </div>
           <div className="mt-6 space-y-2">
             <p className="text-xl font-semibold text-stone-800">July 11th, 2026</p>
-            <p className="text-stone-500 font-sans">From 5:30 PM</p>
+            <p className="text-stone-500 font-sans">From 5:00 PM (until around 2:00 AM)</p>
             <p className="text-lg font-medium text-stone-700 mt-2">The Chapel Bar</p>
             <p className="text-stone-500 text-sm">29 Penton St, London N1 9PX</p>
+            <div className="pt-2 text-stone-600 text-sm font-sans space-y-1">
+              <p>Buffet dinner will be served at 5:30 PM, with more food later in the evening.</p>
+              <p>Very close to Angel Station and King’s Cross / St Pancras, with plenty of hotels nearby if needed.</p>
+            </div>
           </div>
         </div>
 
