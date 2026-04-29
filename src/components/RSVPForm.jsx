@@ -6,6 +6,7 @@ const RSVPForm = () => {
     names: [''],
     dietary: ''
   });
+  const [attending, setAttending] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -41,7 +42,8 @@ const RSVPForm = () => {
     // Create submission payload with the combined name string
     const submissionData = {
       ...formData,
-      name: namesString
+      name: namesString,
+      dietary: attending === 'no' ? 'Not Attending' : `${attending === 'reception' ? 'Reception' : 'Party'} - ${formData.dietary}`
     };
     
     // Simulate submission or call actual Google Form logic
@@ -84,8 +86,9 @@ const RSVPForm = () => {
             <div className="pt-2 text-stone-600 text-sm font-sans space-y-1">
               <p>Buffet dinner will be served at 5:30 PM, with more food later in the evening.</p>
               <p>Very close to Angel Station and King’s Cross / St Pancras</p>
-            </div>
-          </div>
+            </div>            <div className="mt-4 pt-4 border-t border-stone-200 space-y-1">
+              <p className="text-stone-500 text-sm font-sans">The party continues from <span className="font-medium text-stone-700">7:00 PM</span> — you're welcome to join us then.</p>
+            </div>          </div>
         </div>
 
         {isSubmitted && (
@@ -145,13 +148,52 @@ const RSVPForm = () => {
               </button>
             </div>
 
-            {/* Attending removed */}
+            {/* Attending */}
+            <div>
+              <label className="block text-xs font-bold text-stone-500 uppercase tracking-wider mb-2">Will you be attending?</label>
+              <div className="flex gap-3">
+                <button
+                  type="button"
+                  onClick={() => setAttending('reception')}
+                  className={`flex-1 py-2.5 rounded-lg border text-sm font-semibold uppercase tracking-wider transition-all duration-200 ${
+                    attending === 'reception'
+                      ? 'bg-stone-800 text-white border-stone-800'
+                      : 'bg-white text-stone-600 border-stone-300 hover:border-stone-500'
+                  }`}
+                >
+                  Reception
+                  <span className="block text-xs font-normal normal-case tracking-normal mt-0.5 opacity-70">From 5:00 PM</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setAttending('party')}
+                  className={`flex-1 py-2.5 rounded-lg border text-sm font-semibold uppercase tracking-wider transition-all duration-200 ${
+                    attending === 'party'
+                      ? 'bg-stone-800 text-white border-stone-800'
+                      : 'bg-white text-stone-600 border-stone-300 hover:border-stone-500'
+                  }`}
+                >
+                  Party
+                  <span className="block text-xs font-normal normal-case tracking-normal mt-0.5 opacity-70">From 7:00 PM</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setAttending('no')}
+                  className={`flex-1 py-2.5 rounded-lg border text-sm font-semibold uppercase tracking-wider transition-all duration-200 ${
+                    attending === 'no'
+                      ? 'bg-stone-800 text-white border-stone-800'
+                      : 'bg-white text-stone-600 border-stone-300 hover:border-stone-500'
+                  }`}
+                >
+                  No, sorry!
+                </button>
+              </div>
+            </div>
 
           </div>
 
+          {(attending === 'reception' || attending === 'party') && (
           <div className="space-y-5 pt-2 animate-fade-in transition-all duration-500 ease-in-out">
-              {/* Guests removed */}
-
               <div>
                 <label htmlFor="dietary" className="block text-xs font-bold text-stone-500 uppercase tracking-wider mb-1">Dietary Requirements</label>
                 <textarea
@@ -165,13 +207,14 @@ const RSVPForm = () => {
                 />
               </div>
           </div>
+          )}
 
           {/* Message removed */}
 
           <div className="pt-4">
             <button
               type="submit"
-              disabled={isSubmitting || isSubmitted}
+              disabled={isSubmitting || isSubmitted || attending === null}
               className={`w-full flex justify-center py-3.5 px-4 border border-transparent rounded-lg shadow-sm text-sm font-bold uppercase tracking-widest text-white transition-all duration-200 ${
                 (isSubmitting || isSubmitted)
                   ? 'bg-stone-400 cursor-not-allowed' 
